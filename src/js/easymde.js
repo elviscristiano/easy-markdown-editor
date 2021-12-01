@@ -2384,9 +2384,11 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
         } else {
             if (response.error && response.error in self.options.errorMessages) {  // preformatted error message
                 onErrorSup(fillErrorMessage(self.options.errorMessages[response.error]));
-            } else if (response.error) {  // server side generated error message
+            } else if (response.error) {  
+                // server side generated error message
                 onErrorSup(fillErrorMessage(response.error));
-            } else {  //unknown error
+            } else {  
+                //unknown error
                 console.error('EasyMDE: Received an unexpected response after uploading the image.'
                     + this.status + ' (' + this.statusText + ')');
                 onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
