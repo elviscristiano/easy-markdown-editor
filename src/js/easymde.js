@@ -2379,14 +2379,16 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
             onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
             return;
         }
-        if (this.status === 200 && response && !response.error && response.data && response.data.filePath) {
-            onSuccess((self.options.imagePathAbsolute ? '' : (window.location.origin + '/')) + response.data.filePath);
+        if (this.status === 200 || this.status === 201 && response && !response.error && response.data && response.data.slug) {
+            onSuccess((self.options.imagePathAbsolute ? '' : (window.location.origin + '/thumbs/')) + response.data.slug);
         } else {
             if (response.error && response.error in self.options.errorMessages) {  // preformatted error message
                 onErrorSup(fillErrorMessage(self.options.errorMessages[response.error]));
-            } else if (response.error) {  // server side generated error message
+            } else if (response.error) {  
+                // server side generated error message
                 onErrorSup(fillErrorMessage(response.error));
-            } else {  //unknown error
+            } else {  
+                //unknown error
                 console.error('EasyMDE: Received an unexpected response after uploading the image.'
                     + this.status + ' (' + this.statusText + ')');
                 onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
