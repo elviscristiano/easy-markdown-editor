@@ -873,7 +873,7 @@ function afterImageUploaded(editor, url) {
         _replaceSelection(cm, stat.image, options.insertTexts.uploadedImage, url);
     } else {
         var text_link = options.insertTexts.link;
-        text_link[0] = '[' + imageName;
+        text_link[0] = '![';
         _replaceSelection(cm, stat.link, text_link, url);
     }
 
@@ -2382,7 +2382,8 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
         if (this.status === 200 || this.status === 201 && response && !response.error && response.data && response.data.slug) {
             onSuccess((self.options.imagePathAbsolute ? '' : (window.location.origin + '/thumbs/')) + response.data.slug);
         } else {
-            if (response.error && response.error in self.options.errorMessages) {  // preformatted error message
+            if (response.error && response.error in self.options.errorMessages) {  
+                // preformatted error message
                 onErrorSup(fillErrorMessage(self.options.errorMessages[response.error]));
             } else if (response.error) {  
                 // server side generated error message
