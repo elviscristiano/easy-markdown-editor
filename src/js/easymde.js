@@ -2364,9 +2364,6 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
     // }
     var request = new XMLHttpRequest();
     var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    request.setRequestHeader('Accept', 'application/json');
-    request.responseType = 'json';
-    request.setRequestHeader('x-csrf-token', token);
 
     request.upload.onprogress = function (event) {
         if (event.lengthComputable) {
@@ -2375,6 +2372,9 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
         }
     };
     request.open('POST', this.options.imageUploadEndpoint);
+    request.setRequestHeader('Accept', 'application/json');
+    request.responseType = 'json';
+    request.setRequestHeader('x-csrf-token', token);
 
     request.onload = function () {
         try {
