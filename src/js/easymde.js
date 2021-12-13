@@ -2373,7 +2373,6 @@ EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
     };
     request.open('POST', this.options.imageUploadEndpoint);
     request.setRequestHeader('Accept', 'application/json');
-    request.responseType = 'json';
     request.setRequestHeader('x-csrf-token', token);
 
     request.onload = function () {
